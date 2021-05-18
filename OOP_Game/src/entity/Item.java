@@ -4,10 +4,18 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import game_world.Room;
+import game_world.Vector;
 
-public class Item extends Entity{
-	private Room room;
-	private Player player;
+public class Item extends Enemy{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public Item(int x, int y,int delayTime, int frameCount, byte imgID, float speed, Room room) {
+		super(x,y,Vector.Up, delayTime, frameCount, imgID, speed, room);
+		// TODO Auto-generated constructor stub
+	}
 	public void CollisionPlayer() {
 		Rectangle r = this.intersection(player);
 		if(r.isEmpty())return;
@@ -18,7 +26,7 @@ public class Item extends Entity{
 		case 1: player.TakeMP(5);
 		case 2: player.TakeDef(5);
 		}
-		room.GetEntities().remove(this);
+		SetAlive(false);
 	}
 	public void OnLoop() {
 		CollisionPlayer();
