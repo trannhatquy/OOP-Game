@@ -22,9 +22,9 @@ public class World {
 	    		   new Room(new byte[][] {{1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1},
 									      {1, 1, 1, 1, 1, 0, 3, 3, 3, 0, 0, 1, 0, 1, 1, 1},
 									      {1, 1, 1, 1, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 1},
-									      {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+									      {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 									      {1, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 1, 1, 1},
-									      {1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
+									      {1, 0, 0, 0, 2, 2, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1},
 									      {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
 									      {1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
 									      {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}}),
@@ -32,8 +32,8 @@ public class World {
 	    		   new Room(new byte[][] {{1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1},
 										  {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
 										  {1, 1, 1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1, 1},
-										  {1, 0, 0, 0, 0, 5, 2, 2, 2, 0, 0, 3, 0, 0, 0, 1},
-										  {1, 0, 0, 6, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 1, 1},
+										  {1, 0, 0, 0, 0, 2, 2, 2, 2, 0, 1, 3, 0, 0, 0, 1},
+										  {1, 0, 0, 6, 0, 2, 2, 2, 2, 2, 1, 0, 0, 0, 1, 1},
 										  {1, 1, 1, 0, 0, 0, 2, 2, 0, 0, 1, 0, 0, 0, 1, 1},
 										  {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 										  {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
@@ -76,20 +76,20 @@ public class World {
 			room.SetPlayer(player);
 		}
 		player.SetRoom(rooms[0]);
-		if(!MainMenu.getLevel()) {
+		if(MainMenu.getLevel() == 0) {
 			 // room 0
 	    	   rooms[0].GetEntities().add(new Monster(4, 2, Vector.Up, 2, 2, Resources.MONSTER,Resources.MONSTER_ATTACK, 1, rooms[0], 10, false, 1, 20));
 	    	   rooms[0].GetEntities().add(new Monster(10, 2, Vector.Up, 2, 2, Resources.MONSTER, Resources.MONSTER_ATTACK, 1, rooms[0], 10, false, 1, 20));
 	    	   
 	    	   // room 1
 	    	   //rooms[1].GetEntities().add(new Monster(3, 2, Vector.Up, 2, 2, Resources.MONSTER, Resources.MONSTER_ATTACK, 2, rooms[1], 10, true, 1, 20));
-	    	   rooms[1].GetEntities().add(new AD(12, 3, Vector.Up, 2, 2, Resources.AD, 0, rooms[1], 1, true, 0, 200));
-	    	   rooms[1].GetEntities().add(new Item(10, 4, 0, 0, Resources.ITEM, 0, rooms[1]));
+	    	   rooms[1].GetEntities().add(new AD(12, 3, Vector.Up, 2, 2, Resources.AD, 0, rooms[1], 1, true, 0, 100));
+	    	   rooms[1].GetEntities().add(new Item(14, 3, 0, 0, Resources.ITEM, 0, rooms[1]));
 	    	   // room 2
 	    	   
 	    	   rooms[2].GetEntities().add(new AD(5, 1, Vector.Up, 2, 2, Resources.AD, 0, rooms[2], 1, true, 0, 200));
 	    	   rooms[2].GetEntities().add(new AD(13, 5, Vector.Up, 2, 2, Resources.AD, 0, rooms[2], 1, false, 0, 200));
-	    	   rooms[2].GetEntities().add(new Monster(11, 2, Vector.Up, 20, 2, Resources.MONSTER, Resources.MONSTER_ATTACK, 1, rooms[2], 10, false, 1, 200));
+	    	   rooms[2].GetEntities().add(new Monster(11, 2, Vector.Up, 2, 2, Resources.MONSTER, Resources.MONSTER_ATTACK, 1, rooms[2], 10, false, 1, 20));
 	    	   // room 3
 	    	   
 	    	   //rooms[3].GetEntities().add(new Ghost(2, 3, Vector.Up, 2, 2, Resources.GHOST,Resources.GHOST_ATTACK, 2, rooms[3], 10, false, 1, 200));
@@ -122,7 +122,7 @@ public class World {
 	    	   // room 1
 	    	   rooms[1].GetEntities().add(new Monster(3, 2, Vector.Up, 2, 2, Resources.F_MONSTER, Resources.MONSTER_ATTACK, 2, rooms[1], 10, true, 3, 20));
 	    	   rooms[1].GetEntities().add(new AD(12, 3, Vector.Up, 2, 2, Resources.AD, 0, rooms[1], 1, true, 0, 150));
-	    	   rooms[1].GetEntities().add(new Item(10, 4, 0, 0, Resources.ITEM, 0, rooms[1]));
+	    	   rooms[1].GetEntities().add(new Item(14, 3, 0, 0, Resources.ITEM, 0, rooms[1]));
 	    	   // room 2
 	    	   
 	    	   rooms[2].GetEntities().add(new AD(5, 1, Vector.Up, 2, 2, Resources.AD, 0, rooms[2], 1, true, 0, 150));

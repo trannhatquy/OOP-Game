@@ -56,7 +56,7 @@ public class Player extends Entity{
 		if(QTime==0) { 
 			
 		QTime=10;
-		q.SetExistTime(10);// thời gian tồn tại trên màn hình(10 vòng lặp)
+		q.SetExistTime(5);// thời gian tồn tại trên màn hình(10 vòng lặp)
 		q.SetTransform(new Vector(this.x + facing.x*this.height, this.y + facing.y*this.width), new Vector(Tile.size,Tile.size));
 		q.SetFacing(this.facing);
 		}

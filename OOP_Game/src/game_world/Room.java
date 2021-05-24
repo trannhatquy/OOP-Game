@@ -58,5 +58,7 @@ public class Room {
 		return entities;
 	}
 
-	
+	public Tile[][] GetTiles(){
+		return tiles;
+	}
 }

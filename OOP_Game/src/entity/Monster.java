@@ -3,9 +3,13 @@ package entity;
 
 import java.awt.Rectangle;
 
+import game_state.MainMenu;
+
 import java.awt.Graphics;
 import game_world.Room;
+import game_world.Tile;
 import game_world.Vector;
+import path_finding.BFS;
 import resources.Resources;
 
 public class Monster extends Enemy{
@@ -23,7 +27,9 @@ public class Monster extends Enemy{
 		this.attackID=attackID;
 		this.moveID=imgID;
 		curATime=attackTime;
+		
 	}
+	private int stunTime = 0;
 	protected byte moveID;
 	protected byte attackID;
 	protected int hp;
@@ -35,8 +41,8 @@ public class Monster extends Enemy{
 		super.DecreaseTime();
 		if(curATime>0) {
 			curATime--;
-		}
-		
+		}if(stunTime>0)
+			stunTime--;
 	}
 	protected void Attack() {
 		
@@ -61,13 +67,12 @@ public class Monster extends Enemy{
 			SetAlive(false);
 		}
 	}public void CollisionQ() {
-		Rectangle r= this.intersection(player.GetQPos());
-		if(r.isEmpty())return;
-		this.x+=player.GetQPos().GetFacing().x * 90;
-		this.y+=player.GetQPos().GetFacing().y * 90;
-		TakeDamage(-player.GetQPos().GetDamage());
-		
-		
+		if(stunTime==0) {
+			Rectangle r= this.intersection(player.GetQPos());
+			if(r.isEmpty())return;
+			stunTime = 20;
+			TakeDamage(-player.GetQPos().GetDamage());
+		}
 	}
 	public void CollisionR() {
 		Rectangle r= this.intersection(player.GetRPos());
@@ -82,7 +87,11 @@ public class Monster extends Enemy{
 	public void OnLoop() {
 		AnimationDisplay();
 		DecreaseTime();
-		Move();
+		if(stunTime==0) {
+			if(MainMenu.getLevel()>0)
+				BFSMove();
+			else Move();
+		}
 		for(int i=0;i<Room.Ysize;i++) {
 			for(int j=0;j<Room.Xsize;j++) {
 				super.CollisionWall(room.GetTile(i, j));
@@ -120,8 +129,18 @@ public class Monster extends Enemy{
 		super.y = (int)(super.y + facing.y * speed);
 	}
 	public void Render(Graphics g) {
-		if(facing.x<0)
+		if(facing.x < 0)
 		g.drawImage(Resources.TEXTURES.get(imgID + curFrame), x + width, y, -width, height, null);
 		else g.drawImage(Resources.TEXTURES.get(imgID + curFrame), x, y, width, height, null);
+	}
+	public void BFSMove() {
+		
+		if(super.x % Tile.size==0 && super.y % Tile.size==0) {
+			System.out.println("BFS");
+			BFS bfs = new BFS(room.GetTiles());
+			facing = bfs.FindNextNode(super.y / Tile.size, super.x / Tile.size, player.y / Tile.size, player.x / Tile.size);
+		}
+		super.x = (int)(super.x + facing.x * speed);
+		super.y = (int)(super.y + facing.y * speed);
 	}
 }

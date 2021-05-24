@@ -17,18 +17,19 @@ public class MainMenu extends GameState{
 	private static final String LEVEL_GAME = "Level: ";
     private static final String EASY_GAME = "Easy";
     private static final String HARD_GAME = "Hard";
+    private static final String VERY_HARD_GAME = "Very Hard";
     private static final String LABEL = "OOP GAME";
  	protected int selected;
- 	private static boolean level;
+ 	private static int level;
  	
  	public MainMenu(GameStateManager gameStateManager) {
 		super(gameStateManager);
 		this.optionsMenu= new String[]{START_GAME, LEVEL_GAME, QUIT_GAME};
-		this.levelMenu = new String[]{ EASY_GAME, HARD_GAME};
+		this.levelMenu = new String[]{ EASY_GAME, HARD_GAME, VERY_HARD_GAME};
 		this.selected = 0;
-		level = false;
+		level = 0;
 	}
-	public static boolean getLevel() {
+	public static int getLevel() {
 		return level;
 	}
 	@Override
@@ -50,8 +51,8 @@ public class MainMenu extends GameState{
 			else graphics.setColor(Color.WHITE);
 			graphics.drawString(this.optionsMenu[i], 30, 200 + i * 50);
 			if(i==1){
-				if(!level) graphics.drawString(this.levelMenu[0], 150, 200 + i * 50);
-				else graphics.drawString(this.levelMenu[1], 150, 200 + i * 50);
+				 graphics.drawString(this.levelMenu[level], 150, 200 + i * 50);
+				
 			}
 		}
 	}
@@ -76,7 +77,8 @@ public class MainMenu extends GameState{
 						System.exit(0);
 						break;
 					case LEVEL_GAME:
-						level=!level;
+						level++;
+						if(level == 3)level = 0;
 						break;
 				}
 				break;

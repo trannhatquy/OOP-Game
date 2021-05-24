@@ -41,6 +41,7 @@ public class Resources {
 	    public static final byte Q = 34;
 	    public static final byte R = 35;  
 	    public static final byte BLOOD = 36;
+	    public static final byte DARK = 37;
 	    public static ArrayList<BufferedImage> TEXTURES = new ArrayList<>();
 
 	}

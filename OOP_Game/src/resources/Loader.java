@@ -46,6 +46,7 @@ public class Loader {
                 Resources.TEXTURES.add(Resources.Q, ImageIO.read(new File("image/Q.png")));
                 Resources.TEXTURES.add(Resources.R, ImageIO.read(new File("image/R.png")));
                 Resources.TEXTURES.add(Resources.BLOOD, ImageIO.read(new File("image/blood.png")));
+                Resources.TEXTURES.add(Resources.DARK, ImageIO.read(new File("image/dark.png")));
         }catch (Exception e) {
         		System.out.print("Load Failed\n");
                 e.printStackTrace();

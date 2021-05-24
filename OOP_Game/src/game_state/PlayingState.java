@@ -47,6 +47,9 @@ public class PlayingState extends GameState{
 		// TODO Auto-generated method stub
 		world.GetCurrentRoom().Render(g);
 		player.Render(g);
+		if(MainMenu.getLevel() == 2)
+		g.drawImage(Resources.TEXTURES.get(Resources.DARK),(int)player.getCenterX() - 1000, 
+			(int)player.getCenterY() - 1000, 2000, 2000, null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("arial", Font.PLAIN, 15));
 		g.drawString("HP : "+ this.player.getHp(), Tile.size * 2/3 + 5, 20);
